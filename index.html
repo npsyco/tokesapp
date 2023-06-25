@@ -32,52 +32,6 @@
     document.addEventListener('DOMContentLoaded', function() {
       var playButton = document.querySelector('.play-button');
       var isPlaying = false;
-      var audioPlayer; // Azurecast audio player
-      
-      playButton.addEventListener('click', function() {
-        if (isPlaying) {
-          stopBroadcast();
-          playButton.classList.remove('stop-button'); // Remove stop button styling
-          playButton.textContent = '▶'; // ASCII play symbol
-        } else {
-          startBroadcast();
-          playButton.classList.add('stop-button'); // Add stop button styling
-          playButton.textContent = '■'; // ASCII stop symbol
-        }
-        
-        isPlaying = !isPlaying;
-      });
-      
-      function startBroadcast() {
-        // Start Azurecast broadcast here
-        audioPlayer = new AzurecastAudioPlayer();
-        audioPlayer.start();
-      }
-      
-      function stopBroadcast() {
-        // Stop Azurecast broadcast here
-        audioPlayer.stop();
-      }
-      
-      // Mock AzurecastAudioPlayer class for demonstration
-      function AzurecastAudioPlayer() {
-        this.start = function() {
-          console.log('Broadcast started');
-          // Implement your logic to start the Azurecast broadcast
-        };
-        
-        this.stop = function() {
-          console.log('Broadcast stopped');
-          // Implement your logic to stop the Azurecast broadcast
-        };
-      }
-    });
-  </script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var playButton = document.querySelector('.play-button');
-      var isPlaying = false;
       var broadcastId = 'YOUR_BROADCAST_ID'; // Replace with your Azurecast broadcast ID
       
       playButton.addEventListener('click', function() {
@@ -118,7 +72,7 @@
         fetch('https://api.azurecast.com/v1/broadcasts/' + broadcastId + '/stop', {
           method: 'POST',
           headers: {
-            'Authorization': 'Bearer YOUR_API_KEY', // Replace with your Azurecast API key
+            'Authorization': 'Bearer' + YOUR_API_KEY, // Replace with your Azurecast API key
             'Content-Type': 'application/json'
           }
         })
