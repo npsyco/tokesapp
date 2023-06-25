@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var playButton = document.querySelector('.play-button');
-    var audioPlayer = null;
+    var audioPlayer = document.getElementById('audio-player');
     var isPlaying = false;
-    var audioUrl = 'https://142.93.230.38:8000/radio.mp3'; // Replace with your Azurecast stream URL
   
     playButton.addEventListener('click', function() {
       if (isPlaying) {
@@ -17,22 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   
     function startPlayback() {
-      audioPlayer = new Howl({
-        src: [audioUrl],
-        html5: true
-      });
-  
       audioPlayer.play();
       console.log('Playback started');
     }
   
     function stopPlayback() {
-      if (audioPlayer) {
-        audioPlayer.stop();
-        audioPlayer.unload();
-        audioPlayer = null;
-      }
-  
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
       console.log('Playback stopped');
     }
   });
