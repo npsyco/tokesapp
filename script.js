@@ -1,59 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     var playButton = document.querySelector('.play-button');
+    var audioPlayer = document.getElementById('audio-player');
     var isPlaying = false;
-    var broadcastId = 'YOUR_BROADCAST_ID'; // Replace with your Azurecast broadcast ID
   
     playButton.addEventListener('click', function() {
       if (isPlaying) {
-        stopBroadcast();
+        stopPlayback();
         playButton.textContent = '▶'; // ASCII play symbol
       } else {
-        listenBroadcast();
+        startPlayback();
         playButton.textContent = '■'; // ASCII stop symbol
       }
   
       isPlaying = !isPlaying;
     });
   
-    function listenBroadcast() {
-      // Listen to Azurecast broadcast
-      fetch('https://api.azurecast.com/v1/broadcasts/' + broadcastId + '/listen', {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Bearer ' + 'b5c6167e0f2daf71:f3b662de3aba7ae545cefbcb16f5e950', // Replace with your Azurecast API key
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          console.log('Listening to broadcast');
-        } else {
-          console.error('Failed to listen to broadcast');
-        }
-      })
-      .catch(error => {
-        console.error('Error listening to broadcast:', error);
-      });
+    function startPlayback() {
+      audioPlayer.play();
+      console.log('Playback started');
     }
   
-    function stopBroadcast() {
-      // Stop Azurecast broadcast
-      fetch('https://api.azurecast.com/v1/broadcasts/' + broadcastId + '/stop', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + YOUR_API_KEY, // Replace with your Azurecast API key
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => {
-        if (response.ok) {
-          console.log('Broadcast stopped');
-        } else {
-          console.error('Failed to stop broadcast');
-        }
-      })
-      .catch(error => {
-        console.error('Error stopping broadcast:', error);
-      });
+    function stopPlayback() {
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
+      console.log('Playback stopped');
     }
   });
   
