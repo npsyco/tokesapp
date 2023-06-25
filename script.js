@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fetch('https://api.azurecast.com/v1/broadcasts/' + broadcastId + '/listen', {
         method: 'GET',
         headers: {
-          'Authorization': 'Bearer ' + YOUR_API_KEY, // Replace with your Azurecast API key
+          'Authorization': 'Bearer ' + 'b5c6167e0f2daf71:f3b662de3aba7ae545cefbcb16f5e950', // Replace with your Azurecast API key
         }
       })
       .then(response => {
