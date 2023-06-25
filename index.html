@@ -28,66 +28,6 @@
 <body>
   <div class="play-button">▶</div>
   
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var playButton = document.querySelector('.play-button');
-      var isPlaying = false;
-      var broadcastId = 'YOUR_BROADCAST_ID'; // Replace with your Azurecast broadcast ID
-      
-      playButton.addEventListener('click', function() {
-        if (isPlaying) {
-          stopBroadcast();
-          playButton.textContent = '▶'; // ASCII play symbol
-        } else {
-          startBroadcast();
-          playButton.textContent = '■'; // ASCII stop symbol
-        }
-        
-        isPlaying = !isPlaying;
-      });
-      
-      function startBroadcast() {
-        // Start Azurecast broadcast
-        fetch('https://142.93.230.38:8000/radio.mp3', {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + 'b5c6167e0f2daf71:f3b662de3aba7ae545cefbcb16f5e950', // Replace with your Azurecast API key
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => {
-          if (response.ok) {
-            console.log('Broadcast started');
-          } else {
-            console.error('Failed to start broadcast');
-          }
-        })
-        .catch(error => {
-          console.error('Error starting broadcast:', error);
-        });
-      }
-      
-      function stopBroadcast() {
-        // Stop Azurecast broadcast
-        fetch('https://api.azurecast.com/v1/broadcasts/' + broadcastId + '/stop', {
-          method: 'POST',
-          headers: {
-            'Authorization': 'Bearer' + 'b5c6167e0f2daf71:f3b662de3aba7ae545cefbcb16f5e950', // Replace with your Azurecast API key
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => {
-          if (response.ok) {
-            console.log('Broadcast stopped');
-          } else {
-            console.error('Failed to stop broadcast');
-          }
-        })
-        .catch(error => {
-          console.error('Error stopping broadcast:', error);
-        });
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
