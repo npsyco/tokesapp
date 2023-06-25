@@ -13,79 +13,79 @@
     
     /* Style the play button */
     .play-button {
-      font-size: 44px;
+      font-size: 40px;
       cursor: pointer;
     }
     
     /* Style the stop button */
     .stop-button {
       font-size: 60px;
+      margin-top: -12px; /* Adjust the negative margin-top value as needed */
       cursor: pointer;
-      margin-top: -14px; /* Adjust the negative margin-top value as needed */
     }
   </style>
 </head>
 <body>
-  <div class="play-button">▶</div>
+  <div class="button-container">
+    <div class="play-button">&#9658;</div>
+    <div class="stop-button">&#9632;</div>
+  </div>
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      var buttonContainer = document.querySelector('.button-container');
       var playButton = document.querySelector('.play-button');
-      var isPlaying = false;
-      var broadcastId = 'YOUR_BROADCAST_ID'; // Replace with your Azurecast broadcast ID
+      var stopButton = document.querySelector('.stop-button');
+      var audioPlayer; // Azurecast audio player
+      
+      stopButton.style.display = 'none'; // Hide the stop button initially
       
       playButton.addEventListener('click', function() {
-        if (isPlaying) {
+        if (buttonContainer.classList.contains('playing')) {
           stopBroadcast();
-          playButton.textContent = '▶'; // ASCII play symbol
+          buttonContainer.classList.remove('playing');
         } else {
           startBroadcast();
-          playButton.textContent = '■'; // ASCII stop symbol
+          buttonContainer.classList.add('playing');
         }
-        
-        isPlaying = !isPlaying;
       });
       
       function startBroadcast() {
-        // Start Azurecast broadcast
-        fetch('http://142.93.230.38:8000/radio.mp3', {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + YOUR_API_KEY, // Replace with your Azurecast API key
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => {
-          if (response.ok) {
-            console.log('Broadcast started');
-          } else {
-            console.error('Failed to start broadcast');
-          }
-        })
-        .catch(error => {
-          console.error('Error starting broadcast:', error);
-        });
+        // Start Azurecast broadcast here
+        audioPlayer = new AzurecastAudioPlayer();
+        audioPlayer.start();
+        
+        playButton.style.display = 'none';
+        stopButton.style.display = 'block';
       }
       
       function stopBroadcast() {
-        // Stop Azurecast broadcast
-        fetch('http://142.93.230.38:8000/radio.mp3', {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer' + YOUR_API_KEY, // Replace with your Azurecast API key
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => {
-          if (response.ok) {
-            console.log('Broadcast stopped');
-          } else {
-            console.error('Failed to stop broadcast');
-          }
-        })
-        .catch(error => {
-          console.error('Error stopping broadcast:', error);
-        });
+        // Stop Azurecast broadcast here
+        audioPlayer.stop();
+        
+        playButton.style.display = 'block';
+        stopButton.style.display = 'none';
+      }
+      
+      // Mock AzurecastAudioPlayer class for demonstration
+      function AzurecastAudioPlayer() {
+        this.start = function() {
+          console.log('Broadcast started');
+          // Implement your logic to start the Azurecast broadcast
+          fetch('http://142.93.230.38/public/cn', {
+            method: 'GET',
+            headers: {
+              'Authorization': 'Bearer' + YOUR_API_KEY,
+                'Content-Type': 'application/json'
+            }
+          })
+
+        };
+        
+        this.stop = function() {
+          console.log('Broadcast stopped');
+          // Implement your logic to stop the Azurecast broadcast
+        };
       }
     });
   </script>
