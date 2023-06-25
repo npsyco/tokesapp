@@ -48,8 +48,8 @@
       
       function startBroadcast() {
         // Start Azurecast broadcast
-        fetch('https://api.azurecast.com/v1/broadcasts/' + broadcastId + '/start', {
-          method: 'POST',
+        fetch('http://142.93.230.38:8000/radio.mp3', {
+          method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + YOUR_API_KEY, // Replace with your Azurecast API key
             'Content-Type': 'application/json'
@@ -69,8 +69,8 @@
       
       function stopBroadcast() {
         // Stop Azurecast broadcast
-        fetch('https://api.azurecast.com/v1/broadcasts/' + broadcastId + '/stop', {
-          method: 'POST',
+        fetch('http://142.93.230.38:8000/radio.mp3', {
+          method: 'GET',
           headers: {
             'Authorization': 'Bearer' + YOUR_API_KEY, // Replace with your Azurecast API key
             'Content-Type': 'application/json'
